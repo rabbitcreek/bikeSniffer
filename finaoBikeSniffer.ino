@@ -1,18 +1,6 @@
 #include <Servo.h>
 #include <HardwareSerial.h>
-// Update these with values suitable for your network.
-//#define BLYNK_PRINT Serial
-//#define VBATPIN A13 
-//#define DONEPIN 33
 
-//const int ledPin = BUILTIN_LED;
-//float measuredvbat = 0.0;
-char auth[] = "KMCBSy15Xv9VD9D7u9y_ESgZG2aLs-eB";
-
-// Your WiFi credentials.
-// Set password to "" for open networks.
-char ssid[] = "NETGEAR45";
-char pass[] = "gentleshoe219";
 
 long lastMsg = 0;
 char msg[50];
@@ -31,13 +19,7 @@ void setup()
   delay(100);
   while (!Serial);
   
- // pinMode(ledPin, OUTPUT);
-  //digitalWrite(ledPin, 0);
- // Blynk.begin(auth, ssid, pass);
- // pinMode(DONEPIN, OUTPUT);
-  //digitalWrite(DONEPIN, LOW);
-//measuredvbat = analogRead(VBATPIN);
-//measuredvbat = (measuredvbat/4095)*2*3.3*1.1;
+
 HPMA115S0.begin(9600, SERIAL_8N1, RXD2, TXD2);
   while (!HPMA115S0);
   start_autosend();
@@ -48,9 +30,7 @@ void loop()
 {
   
   long now = millis();
-  //Blynk.run();
-
-  // Publish data every 10 seconds
+ 
   if (now - lastMsg > 1000) {
     lastMsg = now;
     
@@ -74,16 +54,9 @@ void loop()
     oldP = map(oldP, 3, 100, 180, 1);
     myservo.write(oldP);
     delay(15);
-   // Blynk.virtualWrite(V4, measuredvbat);
-   // Blynk.virtualWrite(V5, PM25);
-   // Blynk.virtualWrite(V6, PM10);
+   
     delay(500);
- // while (1) {
-    //digitalWrite(DONEPIN, HIGH);
-    //delay(100);
-    //digitalWrite(DONEPIN, LOW);
-   // delay(100);
- // }
+ 
     }  
   }
 }
